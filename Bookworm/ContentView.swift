@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query var books: [Book]
+    @Query(sort: \Book.date, order: .reverse) var books: [Book]
 
     @State private var showingAddScreen = false
 
@@ -30,6 +30,7 @@ struct ContentView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                        .foregroundStyle(book.rating == 1 ? Color.red : Color.primary)
                     }
                 }
                 .onDelete(perform: deleteBooks)

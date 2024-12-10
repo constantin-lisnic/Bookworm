@@ -16,6 +16,14 @@ struct AddBookView: View {
     @State private var rating = 3
     @State private var review = ""
     @State private var genre = "Fantasy"
+    
+    var isValidForm: Bool {
+        if isValidField(title) && isValidField(author) && isValidField(review) {
+            return true
+        }
+        
+        return false
+    }
 
     let genres = [
         "Fantasy", "Kids", "Poetry", "Horror", "Mystery", "Romance", "Thriller",
@@ -51,10 +59,19 @@ struct AddBookView: View {
 
                         dismiss()
                     }
+                    .disabled(!isValidForm)
                 }
             }
             .navigationTitle("Add Book")
         }
+    }
+    
+    func isValidField(_ string: String) -> Bool{
+        if string.trimmingCharacters(in: .whitespaces).isEmpty {
+            return false
+        }
+        
+        return true
     }
 }
 
